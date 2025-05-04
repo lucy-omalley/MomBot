@@ -1,0 +1,28 @@
+// src/app/(chat)/page.tsx
+'use client';
+import { useChat } from '@ai-sdk/react';
+
+export default function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: '/chat/route'
+  });
+
+  return (
+    <div className="mx-auto max-w-2xl py-12">
+      {messages.map(m => (
+        <div key={m.id} className={`p-4 ${m.role === 'user' ? 'bg-blue-50' : 'bg-white'}`}>
+          {m.role === 'user' ? '👤' : '🤖'} {m.content}
+        </div>
+      ))}
+
+      <form onSubmit={handleSubmit} className="fixed bottom-0 left-0 right-0 bg-white p-4">
+        <input
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Ask about bedtime routines..."
+          className="w-full p-3 border rounded-lg shadow-sm"
+        />
+      </form>
+    </div>
+  );
+}
