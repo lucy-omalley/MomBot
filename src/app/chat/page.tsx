@@ -4,7 +4,14 @@ import { useChat } from '@ai-sdk/react';
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/chat/route'
+    api: '/api/chat',
+    initialMessages: [
+      {
+        id: '1',
+        role: 'user',
+        content: 'My child is 2 years old. How do I handle tantrums?',
+      },
+    ]
   });
 
   return (
