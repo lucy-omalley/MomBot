@@ -1,26 +1,16 @@
-import OpenAI from 'openai';
-import { OpenAIStream } from '@ai-sdk/openai';
+// app/api/chat/route.ts
+import { openai } from '@ai-sdk/openai';
+import { StreamingTextResponse, streamText } from 'ai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export const runtime = 'edge';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
-
-  const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo', // or 'gpt-4'
-    stream: true,
-    messages: [
-      {
-        role: 'system',
-        content: systemPrompt, // Your custom prompt
-      },
-      ...messages, // User messages
-    ],
-    temperature: 0.7, // Controls creativity (0=strict, 1=creative)
+  
+  const result = await streamText({
+    model: openai('gpt-3.5-turbo'),
+    messages,
   });
 
-  const stream = OpenAIStream(response);
-  return new Response(stream);
+  return new StreamingTextResponse(result.toAIStream());
 }
