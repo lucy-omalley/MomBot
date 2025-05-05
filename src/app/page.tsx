@@ -1,5 +1,4 @@
 // src/app/page.tsx
-import { BookNowButton } from '@/components/ui/BookNowButton';
 import Link from 'next/link';
 
 export default function Home() {

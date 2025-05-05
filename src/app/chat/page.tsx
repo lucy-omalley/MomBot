@@ -1,10 +1,10 @@
 // src/app/(chat)/page.tsx
 'use client';
-import { useChat } from '@ai-sdk/react';
+import { useChat } from 'ai/react';
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/chat',
+    api: '/api/chat/api',
     initialMessages: [
       {
         id: '1',
