@@ -36,7 +36,7 @@ You are "NannyAI", a professional childcare assistant with 10+ years of experien
 function generateId() {
   try {
     return crypto.randomUUID();
-  } catch (e) {
+  } catch (_e) {
     return Math.random().toString(36).substring(2, 10) + 
            Math.random().toString(36).substring(2, 10);
   }
